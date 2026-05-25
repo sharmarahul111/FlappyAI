@@ -1,5 +1,4 @@
 from settings import *
-from pyray import *
 class Bird:
 	def __init__(self, x, y):
 		self.x = x
