@@ -1,4 +1,6 @@
 from settings import *
+from network import Network
+import numpy as np
 class Bird:
 	def __init__(self, x, y):
 		self.x = x
@@ -58,10 +60,13 @@ class Bird:
 class AgenticBird(Bird):
 	def __init__(self, x, y):
 		super().__init__(x, y)
+		self.network = Network(2,4,1)
+		self.thrashold = .5
 
 	def control(self):
-		from random import random
-		if random() >= .9:
+		data = np.array([self.x, self.y])
+		decision = self.network.forward(data)
+		if decision >= self.thrashold:
 			return True
 		else:
 			return False
