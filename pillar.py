@@ -11,7 +11,7 @@ class Pillar:
 		self.speed = 3
 
 		# random gap position
-		self.gap_y = random.randint(100, WINDOW_HEIGHT - 100)
+		self.gap_y = random.randint(200, WINDOW_HEIGHT - 200)
 
 	def update(self):
 		self.x -= self.speed
@@ -44,7 +44,7 @@ class Pillars:
 		self.pillars = []
 
 		self.spawn_timer = 0
-		self.spawn_interval = 90  # frames (~1.5 sec at 60fps)
+		self.spawn_interval = 120
 
 	def create(self):
 		# spawn at right edge
