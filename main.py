@@ -1,23 +1,21 @@
-from pyray import *
-from bird import Bird
-from pillar import Pillars
+from game import Game
 from settings import *
 
 init_window(WINDOW_WIDTH, WINDOW_HEIGHT, "FlappyAI")
 
 set_target_fps(60)
-bird = Bird(100, 100)
-pillars = Pillars()
+game = Game()
 
 while not window_should_close():
-	bird.update()
-	pillars.update()
+	game.update()
 
 	begin_drawing()
 	clear_background((53, 35, 84))
 
-	bird.draw()
-	pillars.draw()
+	for bird in game.birds:
+		bird.draw()
+
+	game.pillars.draw()
 
 	end_drawing()
 
