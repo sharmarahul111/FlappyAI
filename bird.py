@@ -18,9 +18,9 @@ colors = [
 ]
 
 class Bird:
-	def __init__(self, x, y):
-		self.x = x
-		self.y = y
+	def __init__(self):
+		self.x = 100
+		self.y = 200
 
 		self.radius = 20
 		self.color = choice(colors)
@@ -75,8 +75,8 @@ class Bird:
 		)
 
 class AgenticBird(Bird):
-	def __init__(self, x, y):
-		super().__init__(x, y)
+	def __init__(self):
+		super().__init__()
 		self.network = Network(2,4,1)
 		self.thrashold = .5
 
