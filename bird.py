@@ -13,10 +13,16 @@ class Bird:
 		self.gravity = 0.5
 		self.max_fall_speed = 12
 
+	def control(self):
+		if is_key_pressed(KEY_SPACE):
+			return True
+		return False
+
 	def update(self):
 		# flap
-		if is_key_pressed(KEY_SPACE):
+		if self.control():
 			self.velocity_y = -8
+			
 
 		# gravity
 		self.velocity_y += self.gravity
