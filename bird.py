@@ -19,6 +19,8 @@ colors = [
 ]
 
 class Bird:
+	x= 100
+	radius = 20
 	def __init__(self):
 		self.x = 100
 		self.y = 200
@@ -44,6 +46,19 @@ class Bird:
 			return True
 		return False
 
+	def project(self, pillar):
+		x = 500 # assumed distance from the bird not left screen
+		vision = []
+		
+		for i in range(self.raycount):
+			theta = self.start_angle + self.division * i
+			hypot = x/math.cos(theta)
+
+			if hypot > self.view_dist or True:
+				vision.append(self.view_dist)
+			else:
+				vision.append(hypot)
+	
 	def draw_rays(self):
 		theta = self.start_angle
 		for ray in self.rays:

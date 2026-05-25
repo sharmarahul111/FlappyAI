@@ -7,7 +7,7 @@ class Pillar:
 
 		self.width = 80
 		self.gap_height = 150
-
+		self.color = GREEN
 		self.speed = 3
 
 		# random gap position
@@ -24,7 +24,7 @@ class Pillar:
 			0,
 			self.width,
 			top_height,
-			GREEN
+			self.color
 		)
 
 		# bottom pipe
@@ -36,7 +36,7 @@ class Pillar:
 			int(bottom_y),
 			self.width,
 			bottom_height,
-			GREEN
+			self.color
 		)
 
 class Pillars:

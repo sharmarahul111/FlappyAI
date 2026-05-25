@@ -39,9 +39,20 @@ class Game:
 		# update pillars
 		self.pillars.update()
 
+		# get next pillar to project on
+		next_pillar = None
+		if self.pillars.pillars:
+			next_pillar = self.pillars.pillars[0]
+			for pillar in self.pillars.pillars:
+				if pillar.x+pillar.width > Bird.x - Bird.radius:
+					next_pillar = pillar
+					pillar.color = RED
+					break
 		# update birds
 		for bird in self.birds:
 			bird.update()
+			if next_pillar:
+				bird.project(next_pillar)
 
 		# collision check
 		for bird in self.birds[:]:
