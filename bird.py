@@ -2,6 +2,7 @@ from settings import *
 from network import Network
 import numpy as np
 from random import choice
+import math
 colors = [
     Color(255, 0, 0, 255),      # red
     Color(0, 255, 0, 255),      # green
@@ -24,7 +25,13 @@ class Bird:
 
 		self.radius = 20
 		self.color = choice(colors)
-		
+
+		fov = 90 * (math.pi/180) # in radian, centers at right (x,0)
+		self.raycount = 4
+		self.division = fov/(self.raycount-1)
+		self.start_angle = fov/2 # starting angle
+		self.view_dist = 200
+		self.rays = [200, 200, 200, 200]
 
 		self.velocity_y = 0
 
@@ -36,6 +43,14 @@ class Bird:
 		if is_key_pressed(KEY_SPACE):
 			return True
 		return False
+
+	def draw_rays(self):
+		theta = self.start_angle
+		for ray in self.rays:
+			x = ray * math.cos(theta)
+			y = ray * math.sin(theta)
+			draw_line(int(self.x), int(self.y), int(self.x+x), int(self.y+y), BLUE)
+			theta -= self.division
 
 	def update(self):
 		# flap

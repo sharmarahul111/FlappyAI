@@ -15,6 +15,7 @@ while not window_should_close():
 	clear_background((53, 35, 84))
 
 	for bird in game.birds:
+		bird.draw_rays()
 		bird.draw()
 
 	game.pillars.draw()

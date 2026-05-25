@@ -4,7 +4,7 @@ from pillar import Pillars
 
 class Game:
 	def __init__(self):
-		self.birds = []
+		self.birds = [Bird()]
 		self.pillars = Pillars()
 
 	def check_collision(self, bird, pillar):
