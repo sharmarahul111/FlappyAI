@@ -54,3 +54,15 @@ class Bird:
 			self.radius,
 			self.color
 		)
+
+class AgenticBird(Bird):
+	def __init__(self, x, y):
+		super().__init__(x, y)
+
+	def control(self):
+		from random import random
+		if random() >= .9:
+			return True
+		else:
+			return False
+	

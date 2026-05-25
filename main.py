@@ -1,10 +1,12 @@
 from game import Game
+from bird import Bird, AgenticBird
 from settings import *
 
 init_window(WINDOW_WIDTH, WINDOW_HEIGHT, "FlappyAI")
 
 set_target_fps(60)
 game = Game()
+game.birds += [AgenticBird(100,200) for _ in range(10)]
 
 while not window_should_close():
 	game.update()
