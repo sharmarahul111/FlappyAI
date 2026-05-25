@@ -44,7 +44,7 @@ class Pillars:
 		self.pillars = []
 
 		self.spawn_timer = 0
-		self.spawn_interval = 120
+		self.spawn_interval = 100
 
 	def create(self):
 		# spawn at right edge

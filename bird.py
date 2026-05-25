@@ -104,3 +104,10 @@ class AgenticBird(Bird):
 			self.next_pillar_distance = pillar.x - self.x
 			self.next_pillar_ygap = pillar.gap_y
 	
+	def mutate(self, copies, diversity):
+		children = []
+		for i in range(copies):
+			bird = AgenticBird()
+			bird.network = self.network.mutate(diversity)
+			children.append(bird)
+		return children

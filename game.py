@@ -4,8 +4,9 @@ from pillar import Pillars
 
 class Game:
 	def __init__(self):
-		self.birds = [Bird()]
+		self.birds = []
 		self.pillars = Pillars()
+		self.generation = 1
 
 	def check_collision(self, bird, pillar):
 		# simple AABB collision
@@ -46,7 +47,7 @@ class Game:
 			for pillar in self.pillars.pillars:
 				if pillar.x+pillar.width > Bird.x - Bird.radius:
 					next_pillar = pillar
-					pillar.color = RED
+					# pillar.color = RED
 					break
 		# update birds
 		for bird in self.birds:
@@ -57,5 +58,13 @@ class Game:
 		for bird in self.birds[:]:
 			for pillar in self.pillars.pillars:
 				if self.check_collision(bird, pillar):
-					# self.birds.remove(bird)
+					if len(self.birds) == 1:
+						self.reset(self.birds[0])
+					else:
+						self.birds.remove(bird)
 					break
+	
+	def reset(self, best_bird: AgenticBird):
+		self.birds = [best_bird] + best_bird.mutate(500, .1) 
+		self.pillars = Pillars()
+		self.generation += 1
