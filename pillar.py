@@ -39,3 +39,32 @@ class Pillar:
 			GREEN
 		)
 
+class Pillars:
+	def __init__(self):
+		self.pillars = []
+
+		self.spawn_timer = 0
+		self.spawn_interval = 90  # frames (~1.5 sec at 60fps)
+
+	def create(self):
+		# spawn at right edge
+		new_x = WINDOW_WIDTH + 50
+		self.pillars.append(Pillar(new_x))
+
+	def update(self):
+		# spawn logic
+		self.spawn_timer += 1
+		if self.spawn_timer >= self.spawn_interval:
+			self.create()
+			self.spawn_timer = 0
+
+		# update pillars
+		for pillar in self.pillars:
+			pillar.update()
+
+		# remove off-screen pillars
+		self.pillars = [p for p in self.pillars if p.x + p.width > 0]
+
+	def draw(self):
+		for pillar in self.pillars:
+			pillar.draw()
