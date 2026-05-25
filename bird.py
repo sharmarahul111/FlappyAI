@@ -24,17 +24,11 @@ class Bird:
 	def __init__(self):
 		self.x = 100
 		self.y = 200
-
 		self.radius = 20
 		self.color = choice(colors)
-
-		fov = 90 * (math.pi/180) # in radian, centers at right (x,0)
-		self.raycount = 4
-		self.division = fov/(self.raycount-1)
-		self.start_angle = fov/2 # starting angle
-		self.view_dist = 200
-		self.rays = [200, 200, 200, 200]
-
+		self.next_pillar_distance = WINDOW_WIDTH # relative to self
+		self.next_pillar_ygap = WINDOW_HEIGHT/2
+		
 		self.velocity_y = 0
 
 		# gravity settings
@@ -46,27 +40,9 @@ class Bird:
 			return True
 		return False
 
-	def project(self, pillar):
-		x = 500 # assumed distance from the bird not left screen
-		vision = []
-		
-		for i in range(self.raycount):
-			theta = self.start_angle + self.division * i
-			hypot = x/math.cos(theta)
-
-			if hypot > self.view_dist or True:
-				vision.append(self.view_dist)
-			else:
-				vision.append(hypot)
-	
-	def draw_rays(self):
-		theta = self.start_angle
-		for ray in self.rays:
-			x = ray * math.cos(theta)
-			y = ray * math.sin(theta)
-			draw_line(int(self.x), int(self.y), int(self.x+x), int(self.y+y), BLUE)
-			theta -= self.division
-
+	def set_target(self, pillar):
+		# do nothing for normal bird
+		pass
 	def update(self):
 		# flap
 		if self.control():
@@ -107,14 +83,24 @@ class Bird:
 class AgenticBird(Bird):
 	def __init__(self):
 		super().__init__()
-		self.network = Network(2,4,1)
-		self.thrashold = .5
+		self.network = Network(4,4,1)
+		self.thrashold = .6
 
 	def control(self):
-		data = np.array([self.x, self.y])
+		data = np.array([
+			self.y,
+			self.velocity_y,
+			self.next_pillar_distance,
+			self.next_pillar_ygap
+		])
 		decision = self.network.forward(data)
 		if decision >= self.thrashold:
 			return True
 		else:
 			return False
+
+	def set_target(self, pillar):
+		if pillar:
+			self.next_pillar_distance = pillar.x - self.x
+			self.next_pillar_ygap = pillar.gap_y
 	

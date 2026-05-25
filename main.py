@@ -6,7 +6,7 @@ init_window(WINDOW_WIDTH, WINDOW_HEIGHT, "FlappyAI")
 
 set_target_fps(60)
 game = Game()
-game.birds += [AgenticBird() for _ in range(10)]
+game.birds += [AgenticBird() for _ in range(100)]
 
 while not window_should_close():
 	game.update()
@@ -15,10 +15,9 @@ while not window_should_close():
 	clear_background((53, 35, 84))
 
 	for bird in game.birds:
-		bird.draw_rays()
 		bird.draw()
-
 	game.pillars.draw()
+
 
 	end_drawing()
 

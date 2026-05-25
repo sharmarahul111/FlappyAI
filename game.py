@@ -50,13 +50,12 @@ class Game:
 					break
 		# update birds
 		for bird in self.birds:
+			bird.set_target(next_pillar)
 			bird.update()
-			if next_pillar:
-				bird.project(next_pillar)
 
 		# collision check
 		for bird in self.birds[:]:
 			for pillar in self.pillars.pillars:
 				if self.check_collision(bird, pillar):
-					self.birds.remove(bird)
+					# self.birds.remove(bird)
 					break
